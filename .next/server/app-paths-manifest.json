@@ -1,0 +1,7 @@
+{
+  "/page": "app/page.js",
+  "/api/decks/route": "app/api/decks/route.js",
+  "/api/flashcards/route": "app/api/flashcards/route.js",
+  "/api/generate/route": "app/api/generate/route.js",
+  "/study/[deckId]/page": "app/study/[deckId]/page.js"
+}
