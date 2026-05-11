@@ -115,7 +115,7 @@ export default function StudyPage() {
     setCurrentIndex(0);
     setFlipped(false);
     setSessionStats({ again: 0, hard: 0, good: 0, easy: 0 });
-    fetchData(); // Refresh due cards
+    fetchData();
   }
 
   const currentCard = dueCards[currentIndex];
@@ -136,15 +136,15 @@ export default function StudyPage() {
       <header className="border-b border-mist px-6 py-4 flex items-center gap-4">
         <button
           onClick={() => mode === "review" ? setMode("browse") : router.push("/")}
-          className="text-paper/50 hover:text-paper transition-colors flex items-center gap-2 text-sm"
+          className="text-paper/50 hover:text-paper transition-colors flex items-center gap-2 text-base"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-5 h-5" />
           {mode === "review" ? "Back to deck" : "All decks"}
         </button>
         {deck && (
           <>
             <span className="text-ghost">/</span>
-            <span className="text-paper font-medium truncate">{deck.title}</span>
+            <span className="text-paper font-medium text-base truncate">{deck.title}</span>
           </>
         )}
       </header>
@@ -157,14 +157,14 @@ export default function StudyPage() {
               <h1 className="font-display text-5xl text-paper tracking-wide mb-2">
                 {deck?.title?.toUpperCase()}
               </h1>
-              <p className="text-paper/40 text-sm font-mono">
+              <p className="text-paper/40 text-base font-mono">
                 {cards.length} cards total · {dueCards.length} due for review
               </p>
             </div>
             <button
               onClick={startReview}
               className={clsx(
-                "flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all",
+                "flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-base transition-all",
                 dueCards.length > 0
                   ? "bg-acid text-ink hover:bg-acid/90 animate-pulse-acid"
                   : "bg-slate text-paper/40 cursor-not-allowed"
@@ -178,24 +178,24 @@ export default function StudyPage() {
           {/* Stats row */}
           <div className="grid grid-cols-3 gap-3 mb-8">
             {[
-              { icon: <Layers className="w-4 h-4" />, label: "Total", value: cards.length },
-              { icon: <Calendar className="w-4 h-4" />, label: "Due today", value: dueCards.length },
+              { icon: <Layers className="w-5 h-5" />, label: "Total", value: cards.length },
+              { icon: <Calendar className="w-5 h-5" />, label: "Due today", value: dueCards.length },
               {
-                icon: <CheckCircle2 className="w-4 h-4" />,
+                icon: <CheckCircle2 className="w-5 h-5" />,
                 label: "Reviewed",
                 value: cards.filter((c) => c.last_reviewed).length,
               },
             ].map((stat, i) => (
               <div key={i} className="bg-slate rounded-xl p-4 border border-ghost">
                 <div className="text-acid mb-2">{stat.icon}</div>
-                <p className="font-display text-3xl text-paper">{stat.value}</p>
-                <p className="text-paper/40 text-xs font-mono mt-1">{stat.label}</p>
+                <p className="font-display text-4xl text-paper">{stat.value}</p>
+                <p className="text-paper/40 text-sm font-mono mt-1">{stat.label}</p>
               </div>
             ))}
           </div>
 
           {/* All cards list */}
-          <h2 className="text-paper/40 text-xs uppercase tracking-widest font-mono mb-4">
+          <h2 className="text-paper/40 text-sm uppercase tracking-widest font-mono mb-4">
             All Cards
           </h2>
           <div className="space-y-2">
@@ -206,23 +206,23 @@ export default function StudyPage() {
                   key={card.id}
                   className="bg-slate border border-ghost rounded-xl p-4 flex items-start gap-4 hover:border-ghost/80 transition-colors"
                 >
-                  <span className="text-paper/20 font-mono text-xs w-6 shrink-0 pt-0.5">
+                  <span className="text-paper/20 font-mono text-sm w-6 shrink-0 pt-0.5">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-paper text-sm font-medium">{card.question}</p>
-                    <p className="text-paper/40 text-xs mt-1 line-clamp-2">{card.answer}</p>
+                    <p className="text-paper text-base font-medium">{card.question}</p>
+                    <p className="text-paper/40 text-sm mt-1 line-clamp-2">{card.answer}</p>
                   </div>
                   <div className="shrink-0 text-right">
                     <span
                       className={clsx(
-                        "text-xs font-mono px-2 py-1 rounded",
+                        "text-sm font-mono px-2 py-1 rounded",
                         isDue ? "bg-acid/15 text-acid" : "bg-ghost/30 text-paper/30"
                       )}
                     >
                       {isDue ? "DUE" : `${card.interval}d`}
                     </span>
-                    <p className="text-paper/20 text-xs mt-1 font-mono">
+                    <p className="text-paper/20 text-sm mt-1 font-mono">
                       ×{card.repetitions}
                     </p>
                   </div>
@@ -237,7 +237,7 @@ export default function StudyPage() {
         <div className="max-w-2xl mx-auto px-6 py-10">
           {/* Progress */}
           <div className="mb-8">
-            <div className="flex justify-between items-center text-xs font-mono text-paper/40 mb-2">
+            <div className="flex justify-between items-center text-sm font-mono text-paper/40 mb-2">
               <span>{currentIndex + 1} / {dueCards.length}</span>
               <span>{Math.round(progress)}%</span>
             </div>
@@ -253,7 +253,7 @@ export default function StudyPage() {
           <div className="card-flip-container mb-6">
             <div
               className={clsx("card-flip-inner relative", { flipped })}
-              style={{ minHeight: "300px" }}
+              style={{ minHeight: "320px" }}
             >
               {/* Front */}
               <div
@@ -261,18 +261,18 @@ export default function StudyPage() {
                 onClick={() => !flipped && setFlipped(true)}
               >
                 <div className="flex items-center gap-2 mb-6">
-                  <span className="text-xs font-mono text-paper/30 uppercase tracking-widest">
+                  <span className="text-sm font-mono text-paper/30 uppercase tracking-widest">
                     Question
                   </span>
                   <div className="flex-1 h-px bg-ghost" />
                 </div>
                 <div className="flex-1 flex items-center justify-center">
-                  <p className="text-paper text-xl text-center leading-relaxed font-light">
+                  <p className="text-paper text-2xl text-center leading-relaxed font-light">
                     {currentCard.question}
                   </p>
                 </div>
                 {!flipped && (
-                  <div className="flex items-center justify-center gap-2 text-paper/25 text-sm mt-6">
+                  <div className="flex items-center justify-center gap-2 text-paper/25 text-base mt-6">
                     <Eye className="w-4 h-4" />
                     <span>Click to reveal · Space</span>
                   </div>
@@ -282,13 +282,13 @@ export default function StudyPage() {
               {/* Back */}
               <div className="card-face card-back absolute inset-0 bg-mist border border-acid/30 rounded-2xl p-8 flex flex-col">
                 <div className="flex items-center gap-2 mb-6">
-                  <span className="text-xs font-mono text-acid/60 uppercase tracking-widest">
+                  <span className="text-sm font-mono text-acid/60 uppercase tracking-widest">
                     Answer
                   </span>
                   <div className="flex-1 h-px bg-acid/20" />
                 </div>
                 <div className="flex-1 flex items-center justify-center">
-                  <p className="text-paper text-lg text-center leading-relaxed">
+                  <p className="text-paper text-xl text-center leading-relaxed">
                     {currentCard.answer}
                   </p>
                 </div>
@@ -299,7 +299,7 @@ export default function StudyPage() {
           {/* Rating buttons */}
           {flipped && (
             <div className="animate-slide-up">
-              <p className="text-center text-paper/30 text-xs font-mono mb-4 uppercase tracking-widest">
+              <p className="text-center text-paper/30 text-sm font-mono mb-4 uppercase tracking-widest">
                 How well did you know it?
               </p>
               <div className="grid grid-cols-4 gap-3">
@@ -309,12 +309,12 @@ export default function StudyPage() {
                       key={rating}
                       onClick={() => handleRate(rating)}
                       className={clsx(
-                        "py-3 px-2 rounded-xl border text-sm font-medium transition-all active:scale-95",
+                        "py-3 px-2 rounded-xl border text-base font-medium transition-all active:scale-95",
                         color
                       )}
                     >
                       <span className="block">{label}</span>
-                      <span className="block text-xs opacity-50 font-mono mt-0.5">[{shortcut}]</span>
+                      <span className="block text-sm opacity-50 font-mono mt-0.5">[{shortcut}]</span>
                     </button>
                   )
                 )}
@@ -330,7 +330,7 @@ export default function StudyPage() {
             <CheckCircle2 className="w-10 h-10 text-acid" />
           </div>
           <h2 className="font-display text-5xl text-paper mb-3">SESSION DONE</h2>
-          <p className="text-paper/40 mb-10">
+          <p className="text-paper/40 text-lg mb-10">
             You reviewed {totalReviewed} cards in this session
           </p>
 
@@ -340,8 +340,8 @@ export default function StudyPage() {
               const { label, color } = RATING_LABELS[rating];
               return (
                 <div key={rating} className={clsx("rounded-xl p-4 border", color)}>
-                  <p className="font-display text-3xl">{count}</p>
-                  <p className="text-xs mt-1 opacity-70">{label}</p>
+                  <p className="font-display text-4xl">{count}</p>
+                  <p className="text-sm mt-1 opacity-70">{label}</p>
                 </div>
               );
             })}
@@ -350,14 +350,14 @@ export default function StudyPage() {
           <div className="flex gap-3 justify-center">
             <button
               onClick={resetSession}
-              className="flex items-center gap-2 bg-slate border border-ghost text-paper px-6 py-3 rounded-lg hover:border-paper/30 transition-all"
+              className="flex items-center gap-2 bg-slate border border-ghost text-paper text-base px-6 py-3 rounded-lg hover:border-paper/30 transition-all"
             >
               <RotateCcw className="w-4 h-4" />
               Study again
             </button>
             <button
               onClick={() => setMode("browse")}
-              className="bg-acid text-ink px-6 py-3 rounded-lg font-medium hover:bg-acid/90 transition-all"
+              className="bg-acid text-ink text-base px-6 py-3 rounded-lg font-medium hover:bg-acid/90 transition-all"
             >
               Back to deck
             </button>
